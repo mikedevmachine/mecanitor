@@ -88,6 +88,17 @@ O seed é idempotente — voltar a correr não duplica nada. É também assim qu
 empurram alterações ao esquema (campos novos numa coleção) para o Turso, já que
 em produção o Payload não faz *push*.
 
+**O `BLOB_READ_WRITE_TOKEN` tem de estar preenchido logo à primeira ligação à
+base de dados nova, não só à hora de carregar as fotografias.** Sem ele o
+adaptador do Blob desliga-se, e o esquema que o Payload escreve fica sem a
+coluna `media.prefix`. Um *push* posterior, já com o token, não a acrescenta: o
+site arranca e rebenta em todas as páginas com um erro que em produção aparece
+mascarado como *Minified React error #441*. A cura, se acontecer, é uma linha:
+
+```sql
+alter table media add column prefix text default '';
+```
+
 ## 6. Deploy
 
 _Import Project_ na Vercel a apontar ao repositório. Não é preciso configurar
