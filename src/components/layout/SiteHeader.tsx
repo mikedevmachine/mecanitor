@@ -3,7 +3,7 @@ import React from 'react'
 
 import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher'
 import { MobileNav } from '@/components/layout/MobileNav'
-import { ui, type Locale } from '@/i18n'
+import { navHref, ui, type Locale } from '@/i18n'
 import type { Header } from '@/payload-types'
 
 import styles from './SiteHeader.module.css'
@@ -13,6 +13,7 @@ type NavItem = NonNullable<Header['navItems']>[number]
 /** Fallback (pt-PT) usado enquanto o global "Cabeçalho" não tiver navegação definida. */
 const fallbackNavItems: NavItem[] = [
   { href: '#services', label: 'SERVIÇOS' },
+  { href: '/portfolio', label: 'PORTFÓLIO' },
   { href: '#about', label: 'QUEM SOMOS' },
   { href: '#equipment', label: 'EQUIPAMENTOS' },
   { href: '#contact', label: 'CONTACTOS' },
@@ -54,7 +55,7 @@ export const SiteHeader: React.FC<Props> = ({ header, locale }) => {
             <ul className={styles.navList}>
               {navItems.map((item) => (
                 <li key={item.id ?? item.href}>
-                  <a className={styles.navLink} href={item.href}>
+                  <a className={styles.navLink} href={navHref(item.href, locale)}>
                     {item.label}
                   </a>
                 </li>

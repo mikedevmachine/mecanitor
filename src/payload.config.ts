@@ -65,7 +65,16 @@ export default buildConfig({
       alwaysInsertFields: true,
       token: process.env.BLOB_READ_WRITE_TOKEN,
       collections: {
-        media: true,
+        /*
+         * O `prefix` vazio não muda onde os ficheiros ficam guardados, mas é o
+         * que garante a mesma coluna nos dois casos: em
+         * `@payloadcms/plugin-cloud-storage@3.90.1` o `alwaysInsertFields` só
+         * chega a `getFields` quando o plugin está DESLIGADO (ver
+         * `dist/plugin.js`: a chamada do ramo com adaptador não o passa). Com o
+         * token definido o campo desaparecia do schema e o Payload propunha
+         * apagar a coluna — com dados lá dentro.
+         */
+        media: { prefix: '' },
       },
     }),
   ],

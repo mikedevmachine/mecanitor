@@ -147,6 +147,8 @@ com o mesmo nome e o Payload procura-os pelo nome do ficheiro.
 
 ## Por fazer
 
+- A navegação do cabeçalho passou a ter _Portfólio_. Os caminhos internos ficam guardados sem idioma
+  (`/portfolio`) e o cabeçalho prefixa-os em `navHref`; o item só aparece depois de correr o seed.
 - Falta a introdução de _Quinagem de Chapa_: no desenho aquela página repete, palavra por palavra, o
   texto do corte laser de chapa, por isso ficou sem introdução em vez de anunciar o serviço errado.
 - Faltam as descrições das três últimas fotografias de _Tratamento de superfícies externo_ (os ficheiros
@@ -161,5 +163,4 @@ grandes vivem em ficheiros próprios (`src/seed/content.<slug>.ts` + `.en.ts`) e
 
 - Preencher _Cliente_ e _Localização_ das fotografias — o seed só traz a descrição de cada trabalho e o
   "Por confirmar" que vem do desenho.
-- Página de portfólio.
 - Envio de e-mail na submissão do formulário (hoje a mensagem só fica gravada no admin).

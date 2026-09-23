@@ -678,6 +678,8 @@ export const aboutBlocks: {
 
 export const navItems = [
   { label: 'SERVIÇOS', href: '#services' },
+  // Caminho sem idioma: o cabeçalho prefixa com o idioma em `navHref`.
+  { label: 'PORTFÓLIO', href: '/portfolio' },
   { label: 'QUEM SOMOS', href: '#about' },
   { label: 'EQUIPAMENTOS', href: '#equipment' },
   { label: 'CONTACTOS', href: '#contact' },

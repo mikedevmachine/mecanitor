@@ -29,6 +29,14 @@ export const isLocale = (value: string): value is Locale =>
   (locales as readonly string[]).includes(value)
 
 /**
+ * Resolve o `href` de um item de navegação do CMS. Os caminhos internos ficam
+ * guardados sem idioma (`/portfolio`) para servirem os dois; as âncoras e os
+ * endereços externos passam como estão.
+ */
+export const navHref = (href: string, locale: Locale) =>
+  href.startsWith('/') && !href.startsWith('//') ? `/${locale}${href}` : href
+
+/**
  * Textos da interface que não vivem no CMS (rótulos de acessibilidade,
  * mensagens do formulário e afins).
  */
@@ -64,6 +72,13 @@ export const ui = {
     galleryClient: 'Cliente',
     galleryLocation: 'Localização',
     galleryDescription: 'Descrição',
+    portfolioTitle: 'Portfólio',
+    portfolioEmpty: 'Ainda não há trabalhos publicados.',
+    sliderNav: (service: string) => `Trabalhos de ${service}`,
+    sliderPrevious: 'Fotografias anteriores',
+    sliderNext: 'Fotografias seguintes',
+    /* `{n}` é substituído no cliente — funções não atravessam a fronteira. */
+    sliderGoTo: 'Ir para o grupo {n}',
     formErrors: {
       missingFields: 'Preencha o nome, o e-mail e a mensagem.',
       invalidEmail: 'Indique um endereço de e-mail válido.',
@@ -103,6 +118,12 @@ export const ui = {
     galleryClient: 'Client',
     galleryLocation: 'Location',
     galleryDescription: 'Description',
+    portfolioTitle: 'Portfolio',
+    portfolioEmpty: 'No work has been published yet.',
+    sliderNav: (service: string) => `${service} projects`,
+    sliderPrevious: 'Previous photos',
+    sliderNext: 'Next photos',
+    sliderGoTo: 'Go to group {n}',
     formErrors: {
       missingFields: 'Please fill in your name, e-mail and message.',
       invalidEmail: 'Please enter a valid e-mail address.',

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher'
-import { ui, type Locale } from '@/i18n'
+import { navHref, ui, type Locale } from '@/i18n'
 import type { Header } from '@/payload-types'
 
 import styles from './MobileNav.module.css'
@@ -63,7 +63,11 @@ export const MobileNav: React.FC<Props> = ({ items, locale }) => {
           <ul className={styles.panelList}>
             {items.map((item) => (
               <li key={item.id ?? item.href}>
-                <a className={styles.panelLink} href={item.href} onClick={() => setOpen(false)}>
+                <a
+                  className={styles.panelLink}
+                  href={navHref(item.href, locale)}
+                  onClick={() => setOpen(false)}
+                >
                   {item.label}
                 </a>
               </li>

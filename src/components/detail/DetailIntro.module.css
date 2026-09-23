@@ -61,9 +61,14 @@
   line-height: 1.5;
 }
 
-/* Rich text dos equipamentos: parágrafos e realces a peso médio. */
+/*
+ * Rich text dos equipamentos: parágrafos e realces a peso médio. No desenho os
+ * parágrafos não têm espaço entre si — nas páginas de laser são três linhas
+ * seguidas e na TruBend 3170 é uma quebra de linha dentro do mesmo parágrafo —
+ * por isso a margem fica a zero.
+ */
 .lead p + p {
-  margin-top: 0.5em;
+  margin-top: 0;
 }
 
 .lead strong {

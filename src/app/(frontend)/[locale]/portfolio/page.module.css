@@ -1,0 +1,95 @@
+/*
+ * Página de portfólio — frame 10:844 do Figma. Fundo preto de alto a baixo,
+ * com o título em marca-de-água e uma faixa por serviço: etiqueta em degradé
+ * mais o carrossel.
+ */
+
+.page {
+  /* O cabeçalho flutua por cima, por isso o recuo tem de o incluir. */
+  padding: calc(var(--header-height) + 24px) 0 100px;
+  background: var(--color-black);
+}
+
+/*
+ * Marca de água: 175px a negrito, branco a 10%, entrelinhas de 28px. Encolhe
+ * com a largura para não transbordar — no desenho ocupa 1231px dos 1440px.
+ */
+.title {
+  margin: 0;
+  padding: 0 var(--site-gutter);
+  color: rgb(255 255 255 / 0.1);
+  font-size: clamp(48px, 12.15vw, 175px);
+  font-weight: 700;
+  letter-spacing: clamp(8px, 1.94vw, 28px);
+  /*
+   * O desenho corta a caixa do texto à altura das maiúsculas (`text-box-trim`),
+   * o que dá 127px para os 175px de corpo. A altura das maiúsculas da Inter é
+   * 0,727em, por isso é essa a entrelinha que reproduz a mesma caixa.
+   */
+  line-height: 0.727;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.empty {
+  margin: 48px 0 0;
+  padding: 0 var(--site-gutter);
+  color: var(--color-ash);
+  text-align: center;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  /* 780 − 362 − 366 = 52px entre faixas. */
+  gap: 52px;
+  margin-top: 32px;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  /* A etiqueta fica 4px acima do carrossel. */
+  gap: 4px;
+}
+
+/*
+ * Etiqueta: 30px de altura, degradé de `--color-slate` até transparente com a
+ * paragem em 23%, texto cinzento em itálico fino com muito espaçamento.
+ */
+.label {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  margin: 0;
+  padding-left: 10px;
+  overflow: hidden;
+  background: linear-gradient(to right, var(--color-slate) 23.077%, rgb(88 89 91 / 0) 100%);
+  color: var(--color-ash);
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 3.2px;
+  line-height: normal;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (width >= 1024px) {
+  .page {
+    /* No desenho o título arranca em y=203: 137px de cabeçalho mais 66px. */
+    padding-top: calc(var(--header-height) + 66px);
+  }
+
+  .rows {
+    /* Faixas de 1216px entre goteiras de 112px no frame de 1440px. */
+    width: min(1216px, 100% - 48px);
+    margin: 32px auto 0;
+  }
+
+  .label {
+    font-size: 24px;
+    letter-spacing: 4.8px;
+  }
+}

@@ -442,6 +442,7 @@ export const equipmentLinkLabelEn = 'SEE MORE'
 
 export const navItemsEn = [
   { label: 'SERVICES', href: '#services' },
+  { label: 'PORTFOLIO', href: '/portfolio' },
   { label: 'ABOUT US', href: '#about' },
   { label: 'EQUIPMENT', href: '#equipment' },
   { label: 'CONTACT', href: '#contact' },
