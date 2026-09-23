@@ -1,0 +1,54 @@
+/*
+ * Selector de idioma: `PT` e `EN` lado a lado, separados por uma barra fina.
+ * O idioma activo fica a branco e não é ligação; o outro fica dourado e passa a
+ * amarelo no hover, como os restantes links do cabeçalho.
+ */
+
+.root {
+  display: block;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Barra fina entre os dois idiomas. */
+.item + .item::before {
+  display: block;
+  width: 1px;
+  height: 12px;
+  background: color-mix(in srgb, var(--color-gold) 40%, transparent);
+  content: '';
+}
+
+.current,
+.link {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.current {
+  color: var(--color-white);
+}
+
+.link {
+  color: var(--color-gold);
+  transition: color 0.2s;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--color-yellow);
+}

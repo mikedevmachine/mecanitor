@@ -1,0 +1,189 @@
+/*
+ * Secção 6 — Contactos. Fundo amarelo, mapa à esquerda, bloco de moradas à
+ * direita e, por baixo, o título "Fale connosco" com o formulário.
+ *
+ * O título "CONTACTOS" já não vive aqui: no Figma assenta na costura do fim da
+ * secção Equipamentos, por cima da cunha amarela (ver `SectionSeam`).
+ */
+
+.section {
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 120px;
+  background: var(--color-yellow);
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--site-width) + 2 * var(--site-gutter));
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+.top {
+  composes: container;
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 64px;
+}
+
+/*
+ * A caixa de conteúdo só chega aos 1152px a partir dos 1200px de viewport, por
+ * isso as colunas são fluidas: a 1024px comprimem-se em vez de serem cortadas.
+ */
+.map {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: 280px;
+}
+
+.mapImage {
+  object-fit: cover;
+  /* Funde o mapa no amarelo do fundo, tal como no Figma. */
+  mix-blend-mode: multiply;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  color: var(--color-black);
+  font-size: 20px;
+  line-height: normal;
+  padding-top: 96px;
+}
+
+.locationName {
+  font-weight: 700;
+}
+
+.emailLabel {
+  font-weight: 700;
+}
+
+/*
+ * Moradas, telefones e e-mail lêem-se como o texto à volta — o sublinhado só
+ * aparece ao passar o rato ou ao receber foco, para não sujar o desenho.
+ */
+.addressLink,
+.phoneLink,
+.emailLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.addressLink:hover,
+.addressLink:focus-visible,
+.phoneLink:hover,
+.phoneLink:focus-visible,
+.emailLink:hover,
+.emailLink:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* O número nunca parte entre linhas. */
+.phoneLink {
+  white-space: nowrap;
+}
+
+.whatsapp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.whatsappPrefix {
+  font-weight: 700;
+}
+
+.whatsappButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 119px;
+  height: 30px;
+  border-radius: 5px;
+  background: var(--color-whatsapp);
+  color: var(--color-white);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/*
+ * Título interno "Fale connosco" — mesma técnica da costura: o risco de 2px
+ * corre sobre a linha de base do texto e sangra até à margem direita.
+ */
+.formHeading {
+  --content-left: max(var(--site-gutter), calc((100% - var(--site-width)) / 2));
+
+  position: relative;
+  margin-top: 80px;
+}
+
+.formHeadingInner {
+  composes: container;
+}
+
+.formHeadingLabel {
+  color: var(--color-ink);
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1;
+  text-transform: uppercase;
+  /* Baixa o texto 0.22em para pousar a linha de base sobre o risco. */
+  transform: translateY(0.22em);
+}
+
+.formHeadingRule {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: calc(var(--content-left) + var(--rule-offset));
+  height: var(--rule-thickness);
+  background: var(--color-ink);
+}
+
+.formArea {
+  composes: container;
+
+  margin-top: 40px;
+}
+
+@media (width >= 640px) {
+  .map {
+    height: 420px;
+  }
+}
+
+@media (width >= 768px) {
+  .formHeadingLabel {
+    font-size: 48px;
+  }
+}
+
+@media (width >= 1024px) {
+  .top {
+    flex-direction: row;
+    align-items: flex-start;
+    min-height: 766px;
+    margin-top: 80px;
+  }
+
+  .map {
+    width: 61.5%;
+    height: 724px;
+  }
+
+  .details {
+    flex: 1;
+    min-width: 0;
+    max-width: 458px;
+  }
+}

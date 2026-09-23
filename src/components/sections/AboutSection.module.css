@@ -1,0 +1,179 @@
+/*
+ * Secção "Quem Somos": blocos alternados de texto e imagem sobre fundo branco.
+ *
+ * A secção não pode cortar o conteúdo — a costura com o título "EQUIPAMENTOS"
+ * assenta no seu fim e tem de poder transbordar —, por isso o triângulo escuro
+ * do canto inferior esquerdo vive numa camada própria, essa sim recortada.
+ */
+
+.section {
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 170px;
+  background: var(--color-white);
+}
+
+/* Camada decorativa: é ela que corta, nunca a secção. */
+.wedgeLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/*
+ * Triângulo decorativo de 661 × 486 no design de 1440px — 661/1440 = 45.9vw,
+ * a mesma convenção das secções irmãs (Serviços 52.85vw/761px, Equipamentos
+ * 40vw/551px). Estava em 40vw, que a 1440px dava 576px em vez de 661px e
+ * deixava o fim de "EQUIPAMENTOS" a branco sobre branco a partir de ~1180px.
+ */
+.wedge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 45.9vw;
+  max-width: 661px;
+  height: auto;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+}
+
+.blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  width: 100%;
+  max-width: 1220px;
+  margin-top: 64px;
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+/* Abaixo de 1024px o bloco empilha: imagem por cima, texto por baixo. */
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.text {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.title {
+  color: var(--color-gold);
+  font-size: 28px;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+/* Risco decorativo por baixo do título, esticado à largura da coluna. */
+.rule {
+  display: block;
+  width: 100%;
+  height: 39px;
+  margin-top: 6px;
+  object-fit: fill;
+  object-position: left;
+}
+
+/*
+ * Antigo utilitário global `prose-mecanitor`, agora local ao contentor do
+ * <RichText> — o Lexical gera os <p>, <strong> e <a> sem classes nossas.
+ */
+.body {
+  margin-top: 24px;
+}
+
+.body p {
+  color: var(--color-slate);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: normal;
+  text-align: justify;
+}
+
+.body p + p {
+  margin-top: 1.5em;
+}
+
+.body strong {
+  font-weight: 600;
+}
+
+.body a {
+  color: var(--color-gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.media {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+/*
+ * Recorte escolhido no CMS. A borda branca de 2px vem do terceiro bloco no
+ * Figma; sobre o fundo branco é imperceptível nos restantes, daí ser comum.
+ */
+.frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 2px solid var(--color-white);
+}
+
+.ratio54 {
+  aspect-ratio: 5 / 4;
+}
+
+.ratio11 {
+  aspect-ratio: 1 / 1;
+}
+
+.ratio34 {
+  aspect-ratio: 3 / 4;
+}
+
+.cover {
+  object-fit: cover;
+}
+
+/* "Original": mantém as proporções do ficheiro, sem caixa de recorte. */
+.autoImage {
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--color-white);
+  object-fit: cover;
+}
+
+@media (width >= 768px) {
+  .title {
+    font-size: 40px;
+  }
+}
+
+@media (width >= 1024px) {
+  .block {
+    flex-direction: row;
+  }
+
+  /* Larguras do design de 1440px, conforme o lado em que a imagem fica. */
+  .textWide {
+    width: 710px;
+  }
+
+  .textNarrow {
+    width: 399px;
+  }
+}

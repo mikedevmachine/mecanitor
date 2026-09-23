@@ -1,0 +1,81 @@
+/*
+ * Card de serviço — 380 × 337 no Figma: barra de título preta de 88px sobre uma
+ * caixa de imagem de 380 × 245 com vinheta radial. O conjunto é uma só ligação.
+ */
+
+.card {
+  display: block;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88px;
+  padding-inline: 16px;
+  background: var(--color-black);
+  text-align: center;
+  transition: background-color 250ms var(--ease-out);
+}
+
+.title {
+  color: var(--color-ash);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: uppercase;
+  transition: color 250ms var(--ease-out);
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 380 / 245;
+  overflow: hidden;
+}
+
+.media img {
+  object-fit: cover;
+}
+
+/*
+ * Vinheta radial do design (node 50:640). O Figma define um `radialGradient` de
+ * r=10 com `gradientTransform` a escalar 25.359 na horizontal e 16.35 na
+ * vertical, centrado em (190, 122.5) de uma caixa de 380 × 245 — ou seja raios
+ * de 253.6 × 163.5px, que são 66.7% da largura e 66.7% da altura.
+ */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 66.7% 66.7% at 50% 50%,
+    rgb(0 0 0 / 0) 0%,
+    rgb(0 0 0 / 0.8) 100%
+  );
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 250ms var(--ease-out);
+}
+
+/*
+ * Estado de hover — variante "Propriedade 1=Frame 42" do conjunto de componentes
+ * no Figma (ex.: nodes 50:650 / 50:510). Face à variante "Padrão" muda três
+ * coisas e mais nada: a barra passa a dourada, o texto a preto e a vinheta
+ * desaparece, deixando a fotografia à vista. Não há aproximação da imagem.
+ * A focagem por teclado usa o mesmo destaque.
+ */
+.card:hover .vignette,
+.card:focus-visible .vignette {
+  opacity: 0;
+}
+
+.card:hover .bar,
+.card:focus-visible .bar {
+  background: var(--color-gold);
+}
+
+.card:hover .title,
+.card:focus-visible .title {
+  color: var(--color-black);
+}

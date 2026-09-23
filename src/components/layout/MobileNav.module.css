@@ -1,0 +1,114 @@
+/*
+ * Navegação abaixo dos 1024px: botão de três barras no canto direito da faixa
+ * com textura e painel que desce por baixo do cabeçalho.
+ */
+
+.root {
+  display: block;
+}
+
+/*
+ * O reset global não toca nos botões, por isso o `.toggle` tem de limpar o
+ * fundo, a borda e o padding nativos.
+ */
+.toggle {
+  position: absolute;
+  top: 28px;
+  right: var(--site-gutter);
+  /* Acima do logótipo (z-index 10), senão ficava por baixo em ecrãs estreitos. */
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-gold);
+  transition:
+    transform 0.2s,
+    opacity 0.2s;
+}
+
+/* Aberto: as barras de cima e de baixo cruzam-se e a do meio desaparece. */
+.toggleOpen .barTop {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.toggleOpen .barMiddle {
+  opacity: 0;
+}
+
+.toggleOpen .barBottom {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  display: none;
+  background: color-mix(in srgb, var(--color-ink) 95%, transparent);
+}
+
+.panelOpen {
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--site-width) + 2 * var(--site-gutter));
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+.panelList {
+  composes: container;
+
+  display: flex;
+  flex-direction: column;
+  padding-block: 10px;
+}
+
+.panelLink {
+  display: block;
+  padding-block: 10px;
+  color: var(--color-gold);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 20px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.panelLink:hover,
+.panelLink:focus-visible {
+  color: var(--color-yellow);
+}
+
+/* Última linha do painel: o selector de idioma, separado por um filete de 1px. */
+.panelLocale {
+  composes: container;
+
+  padding-block: 14px;
+  border-top: 1px solid color-mix(in srgb, var(--color-gold) 40%, transparent);
+}
+
+/* A partir dos 1024px manda a navegação horizontal do cabeçalho. */
+@media (width >= 1024px) {
+  .root {
+    display: none;
+  }
+}

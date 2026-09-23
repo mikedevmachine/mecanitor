@@ -1,0 +1,101 @@
+/*
+ * Cartão de equipamento: cabeçalho cinzento com categoria/modelo, imagem do
+ * produto em fundo branco e, no rodapé, o risco dourado com "VER MAIS".
+ * O alvo do hover é o cartão inteiro; `:focus-visible` dá o mesmo destaque.
+ */
+
+.card {
+  display: block;
+  filter: drop-shadow(-4px 4px 2px rgb(0 0 0 / 0.25));
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 88px;
+  padding-inline: 12px;
+  background: var(--color-ash);
+  color: var(--color-white);
+  font-size: 24px;
+  line-height: normal;
+  text-align: center;
+}
+
+.category {
+  font-style: italic;
+  font-weight: 200;
+}
+
+.model {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.body {
+  padding: 12px 13px 24px;
+  background: var(--color-white);
+}
+
+/* Caixa de 340 × 353: a imagem fica contida e centrada nos dois eixos. */
+.media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 340px;
+  height: 353px;
+  margin-inline: auto;
+}
+
+.image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.rule {
+  width: 207px;
+  max-width: 100%;
+  height: var(--rule-thickness);
+  background: var(--color-gold);
+  transition: width 300ms var(--ease-out);
+}
+
+.label {
+  margin-top: 8px;
+  color: var(--color-gold);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: normal;
+  transition: color 300ms var(--ease-out);
+}
+
+/* Hover e teclado produzem exactamente o mesmo destaque. */
+.card:hover .rule,
+.card:focus-visible .rule {
+  width: 240px;
+}
+
+.card:hover .label,
+.card:focus-visible .label {
+  color: var(--color-yellow);
+}
+
+/* No design o cabeçalho é 28px; abaixo dos 640px desce para 24px. */
+@media (width >= 640px) {
+  .header {
+    font-size: 28px;
+  }
+}

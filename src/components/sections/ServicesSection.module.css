@@ -1,0 +1,82 @@
+/*
+ * Secção "Serviços" — 1440px de largura no Figma (node 1:51): fundo `ink`, o
+ * degradé preto de 159px que continua o esbatimento do hero, a cunha branca de
+ * 761 × 552 no canto inferior esquerdo e a grelha de cards de 380px com 8px de
+ * intervalo, entre 80px em cima e 170px em baixo.
+ *
+ * A secção NÃO pode cortar o conteúdo — a cedilha de "QUEM SOMOS", que assenta
+ * na costura em baixo, tem de transbordar. Por isso o recorte vive só na camada
+ * decorativa.
+ */
+
+.services {
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 170px;
+  background: var(--color-ink);
+}
+
+/* Camada recortada: só o que é decorativo entra aqui, nunca a costura. */
+.decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Continua o fade do hero: 159px de preto a esbater-se para o fundo da secção. */
+.fade {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 159px;
+  background: linear-gradient(to bottom, var(--color-black), transparent);
+}
+
+/*
+ * Cunha branca decorativa ancorada ao canto inferior esquerdo (761 × 552 no
+ * design). Desce 1px abaixo do limite, como no Figma, para o recorte não deixar
+ * um fio de fundo entre a cunha e a secção seguinte.
+ */
+.wedge {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 52.85vw;
+  max-width: 761px;
+  height: auto;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Substitui o antigo utilitário global `container-site`. */
+.container {
+  width: 100%;
+  max-width: calc(var(--site-width) + 2 * var(--site-gutter));
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+.grid {
+  composes: container;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+@media (width >= 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

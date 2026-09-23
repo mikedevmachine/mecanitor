@@ -1,0 +1,39 @@
+/*
+ * Página de equipamento — frame 297:10140 do Figma. Mesma moldura da página de
+ * serviço: fundo branco com uma faixa de
+ * degradé escuro no topo, atrás do título; a galeria sobrepõe-se a essa faixa.
+ */
+
+.page {
+  position: relative;
+  padding-bottom: 100px;
+  background: var(--color-white);
+}
+
+/*
+ * No Figma é um rectângulo de 1440 × 767 com `mix-blend-mode: multiply` sobre
+ * branco — o que dá exactamente o mesmo que pintar o degradé. Arranca sob a
+ * faixa dourada de 11px do cabeçalho, que flutua por cima.
+ */
+.backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 500px;
+  /* Sem galeria a página é mais curta que a faixa — nunca a deixar transbordar. */
+  max-height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--color-black) 0%,
+    var(--color-ink) 67.31%,
+    var(--color-ink) 100%
+  );
+  pointer-events: none;
+}
+
+@media (width >= 1024px) {
+  .backdrop {
+    height: 778px;
+  }
+}

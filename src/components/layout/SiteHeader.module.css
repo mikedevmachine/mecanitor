@@ -1,0 +1,180 @@
+/*
+ * Cabeçalho fixo de 137px: faixa dourada de 11px (--header-bar) + faixa de 126px
+ * (--header-strip) com a textura `header-bg.png`.
+ *
+ * O logótipo arranca no topo com 209px de altura, pelo que transborda 62px para
+ * dentro do hero — daí `overflow: visible` e o `z-index: 50`.
+ */
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 50;
+  height: var(--header-height);
+  overflow: visible;
+}
+
+/*
+ * Ligação de salto: fora do ecrã até receber foco pelo teclado. `:focus` e não
+ * `:focus-visible` — tem de aparecer sempre que ganha o foco.
+ */
+.skipLink {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  /* Acima de tudo o que o cabeçalho empilha (logótipo 10, navegação 20, botão 30). */
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--color-gold);
+  color: var(--color-black);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.skipLink:focus {
+  top: var(--site-gutter);
+  left: var(--site-gutter);
+}
+
+.bar {
+  width: 100%;
+  height: var(--header-bar);
+  background: var(--color-gold);
+}
+
+.strip {
+  position: relative;
+  width: 100%;
+  height: var(--header-strip);
+  background-image: url('/figma/header-bg.png');
+  background-position: center;
+  background-size: cover;
+}
+
+/*
+ * Linha da navegação de desktop — lista de links + selector de idioma.
+ * Só a partir de 1024px; abaixo disso manda o MobileNav.
+ */
+.navRow {
+  display: none;
+}
+
+/* Invólucro semântico da lista: quem alinha a linha é a `.navRow`. */
+.nav {
+  display: block;
+}
+
+/* Caixa do selector de idioma dentro da linha (ver `pointer-events` a 1024px). */
+.switcher {
+  display: block;
+}
+
+.navList {
+  display: flex;
+  align-items: flex-start;
+  gap: 43px;
+}
+
+.navLink {
+  color: var(--color-gold);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--color-yellow);
+}
+
+/*
+ * O logótipo em escada: 260px, 340px a partir de 1024px (para não colidir com a
+ * navegação) e os 499px do Figma a partir de 1280px.
+ */
+.logo {
+  position: absolute;
+  top: 0;
+  left: var(--site-gutter);
+  z-index: 10;
+  display: block;
+  width: 260px;
+  /* Nunca alcança o botão do MobileNav: 24px + 44px + 24px de folga. */
+  max-width: calc(100% - 92px);
+  /* Os 62px que transbordam para o hero ficam inertes — ver `.logoHit`. */
+  pointer-events: none;
+}
+
+.logoImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Só esta zona, limitada à altura do cabeçalho, é que recebe cliques. */
+.logoHit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--header-height);
+  max-height: 100%;
+  pointer-events: auto;
+}
+
+@media (width >= 1024px) {
+  /*
+   * A caixa da linha ocupa a faixa inteira e o `z-index: 20` mantém-na acima
+   * do logótipo (z-index 10), para que este não engula os links. Em troca, a
+   * área vazia da linha tem de ficar inerte, senão tapava a zona de clique do
+   * logótipo em todo o desktop — só a lista e o selector é que apanham o ponteiro.
+   */
+  .navRow {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    /* O selector de idioma fica a 40px do último item da navegação. */
+    gap: 40px;
+    height: 100%;
+    padding-top: 28px;
+    /*
+     * Desvio deliberado ao Figma: o desenho remata a navegação a 72px da margem
+     * direita, mas não previa selector de idioma. Com 24px, é o selector que
+     * ocupa o espaço que sobrava e o conjunto fica encostado à direita tal como
+     * no desenho original.
+     */
+    padding-right: 24px;
+    pointer-events: none;
+  }
+
+  .navList,
+  .switcher {
+    pointer-events: auto;
+  }
+
+  /*
+   * 300px e não 340px: com o selector de idioma na linha, os rótulos portugueses
+   * (mais longos que os ingleses) chegam a x≈343px num ecrã de 1024px, e o
+   * triângulo branco do logótipo a 340px alcançava x≈353px. A 300px sobram ~30px.
+   */
+  .logo {
+    left: 64px;
+    width: 300px;
+  }
+}
+
+@media (width >= 1280px) {
+  .logo {
+    left: 135px;
+    width: 499px;
+  }
+}

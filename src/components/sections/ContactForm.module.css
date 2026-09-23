@@ -1,0 +1,138 @@
+/*
+ * Formulário "Fale connosco" — assenta sobre o amarelo da secção Contactos.
+ * Sem o preflight do Tailwind, os campos e os botões precisam de repor
+ * explicitamente a borda, o raio e o fundo.
+ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--color-slate);
+  font-size: 20px;
+  line-height: normal;
+}
+
+.control {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-size: 16px;
+  line-height: normal;
+}
+
+/* Sobre o campo branco, um halo em `slate` lê-se melhor que o contorno global. */
+.control:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-slate) 50%, transparent);
+}
+
+.input {
+  composes: control;
+
+  height: 48px;
+  padding-inline: 16px;
+}
+
+.textarea {
+  composes: control;
+
+  resize: none;
+  height: 293px;
+  padding: 16px;
+}
+
+/* O selector de ficheiros é accionado pelo botão "Carregar ficheiros". */
+.fileInput {
+  display: none;
+}
+
+.error {
+  /* Não há token de erro na folha global. */
+  color: #9f0712;
+  font-size: 16px;
+  line-height: normal;
+}
+
+.success {
+  color: var(--color-ink);
+  font-size: 20px;
+  line-height: normal;
+}
+
+/*
+ * Rodapé do formulário: a nota sobre os limites de anexo por cima da linha de
+ * botões. O texto vem de `ui[locale].formFileHint`.
+ */
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* `ink` e não `slate`: sobre o amarelo da secção, `slate` dá 4.03:1 e falha o AA. */
+.fileHint {
+  color: var(--color-ink);
+  font-size: 16px;
+  line-height: normal;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.button {
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--color-white);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: opacity 0.2s;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.uploadButton {
+  composes: button;
+
+  background: var(--color-ash);
+  color: var(--color-slate);
+}
+
+.submitButton {
+  composes: button;
+
+  background: var(--color-slate);
+  color: var(--color-white);
+}
+
+@media (width >= 640px) {
+  .actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .button {
+    width: 326px;
+  }
+}

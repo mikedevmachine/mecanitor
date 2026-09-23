@@ -1,0 +1,232 @@
+/*
+ * Grelha de trabalhos + janela de detalhe — frames 217:989 e 241:843 do Figma.
+ * A janela usa o `<dialog>` nativo: traz o aprisionamento de foco, a tecla Escape
+ * e o `::backdrop` sem código extra.
+ */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 8px;
+  background: var(--color-white);
+}
+
+.cell {
+  display: block;
+  position: relative;
+  aspect-ratio: 394 / 252;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+}
+
+.cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms var(--ease-out);
+}
+
+.cell:hover img,
+.cell:focus-visible img {
+  transform: scale(1.04);
+}
+
+/* --- janela ---------------------------------------------------------------- */
+
+/*
+ * Sem `display` aqui: o `display: none` que o browser dá ao `<dialog>` fechado
+ * tem de continuar a valer. O `flex` só entra quando a janela está aberta.
+ */
+.dialog {
+  width: min(957px, 100vw);
+  max-width: 100%;
+  height: 90dvh;
+  max-height: 90dvh;
+  margin: auto;
+  padding: 10px;
+  border: 0;
+  background: var(--color-black);
+  color: var(--color-white);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog::backdrop {
+  background: rgb(0 0 0 / 0.8);
+}
+
+/* A imagem ocupa toda a altura que sobra depois da ficha. */
+.stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/*
+ * No desenho a imagem tem 937 × 810, mas a janela é sempre 90dvh: a fotografia
+ * estica-se para preencher o que a ficha deixa livre e o `cover` corta o
+ * excedente em vez de deformar.
+ */
+.stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*
+ * Estado de hover — variante "Propriedade 1=Variante 2" do conjunto 241:1009:
+ * o quadrado passa a branco cheio e o X fica recortado (vê-se a fotografia).
+ */
+.close {
+  position: absolute;
+  top: 19px;
+  right: 17.75px;
+  width: 45.255px;
+  height: 45.255px;
+  padding: 0;
+  border: 0;
+  background: url('/figma/lightbox-close.svg') center / contain no-repeat;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus-visible {
+  background-image: url('/figma/lightbox-close-hover.svg');
+}
+
+/*
+ * Conjunto 241:1024: em repouso o quadrado é só contorno com o triângulo cheio;
+ * ao passar o rato o quadrado enche de branco e o triângulo fica recortado.
+ */
+.arrow {
+  position: absolute;
+  bottom: 20px;
+  width: 41px;
+  height: 41px;
+  padding: 0;
+  border: 0;
+  background: url('/figma/lightbox-arrow.svg') center / contain no-repeat;
+  cursor: pointer;
+}
+
+.arrow:hover,
+.arrow:focus-visible {
+  background-image: url('/figma/lightbox-arrow-hover.svg');
+}
+
+.previous {
+  left: 19px;
+}
+
+.next {
+  right: 22px;
+}
+
+/* O "seguinte" reutiliza o mesmo ficheiro, rodado — tal como no Figma. */
+.next {
+  transform: rotate(180deg);
+}
+
+/*
+ * Os ícones são brancos e a fotografia vem do CMS: uma sombra curta garante que
+ * se lêem também sobre zonas claras, sem acrescentar nenhuma caixa ao desenho.
+ */
+.close,
+.arrow {
+  filter: drop-shadow(0 0 3px rgb(0 0 0 / 0.75));
+}
+
+/* --- ficha ----------------------------------------------------------------- */
+
+.facts {
+  display: grid;
+  flex: 0 0 auto;
+  margin: 0;
+  /* Coluna de rótulos com 178px de 937 no desenho. */
+  grid-template-columns: minmax(96px, 178px) 1fr;
+  background: var(--color-black);
+}
+
+.label,
+.value {
+  padding: 20px 20px 10px;
+  border-bottom: 0.5px solid var(--color-white);
+}
+
+.label {
+  border-right: 0.5px solid var(--color-white);
+  color: var(--color-gold);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.value {
+  margin: 0;
+  padding-right: 10px;
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+/* A primeira linha do desenho é um ponto maior e sem o peso leve. */
+.first {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* A descrição não é em maiúsculas e fecha a tabela, sem risco em baixo. */
+.description {
+  padding-block: 20px;
+  border-bottom: 0;
+  text-transform: none;
+}
+
+.descriptionLabel {
+  border-bottom: 0;
+}
+
+@media (width >= 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .label,
+  .value {
+    font-size: 16px;
+  }
+
+  .first {
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell img {
+    transition: none;
+  }
+
+  .cell:hover img,
+  .cell:focus-visible img {
+    transform: none;
+  }
+}

@@ -1,0 +1,108 @@
+/* Hero de largura total — 1440 × 753 no Figma. O cabeçalho fixo flutua por cima. */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 60vh;
+  height: 75vw;
+  background: var(--color-black);
+}
+
+/* Só a fotografia é cortada: a costura em baixo tem de poder transbordar. */
+.photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/*
+ * Enquadramento do Figma (node 43:264, frame 1:43 de 1440 × 753): a caixa da
+ * imagem mede 1440 × 920 em y=-19 e a fotografia dentro dela está a 105.65% ×
+ * 124.02% com um desvio de -2.93% / -24.02%. Em coordenadas da fotografia
+ * original (1920 × 1440) isso deixa visível a faixa y 303..1253, centrada em 778.
+ * Com `cover` o centro cai em 720 — daí o 63% vertical, que repõe o corte do
+ * desenho e continua a aguentar uma fotografia de outro formato vinda do CMS.
+ */
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 63%;
+  /* Os 105.65% de largura do Figma são 5.7% de zoom para lá do que `cover` dá. */
+  transform: scale(1.057);
+  transform-origin: 50% 63%;
+  opacity: 0.9;
+}
+
+/* Faixa de 159px que escurece o fundo e liga o hero à secção Serviços. */
+.fade {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 159px;
+  background: linear-gradient(to top, var(--color-black), transparent);
+  pointer-events: none;
+}
+
+/*
+ * Cunha preta em degradé no canto inferior esquerdo. O SVG tem 527 × 431 de
+ * origem mas o Figma coloca-a a 518.36 × 431 (node 1:45) — como o ficheiro traz
+ * `preserveAspectRatio="none"`, basta fixar as duas medidas no passo desktop.
+ */
+.wedge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40vw;
+  height: auto;
+  pointer-events: none;
+}
+
+.tagline {
+  color: var(--color-slate);
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 2px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.emphasis {
+  font-weight: 600;
+}
+
+@media (width >= 768px) {
+  .tagline {
+    font-size: 24px;
+    letter-spacing: 3.6px;
+  }
+}
+
+@media (width >= 1024px) {
+  .hero {
+    height: 753px;
+    min-height: 0;
+  }
+
+  .wedge {
+    width: 518px;
+    height: 431px;
+  }
+
+  /* No Figma a assinatura fica 13px acima da linha de base do título. */
+  .tagline {
+    transform: translateY(-7.7px);
+  }
+}
+
+/*
+ * Uma só linha a partir dos 1440px, a largura para que o Figma a desenhou:
+ * a 24px com 3.6px de espaçamento a frase mede ~876px.
+ */
+@media (width >= 1440px) {
+  .tagline {
+    white-space: nowrap;
+  }
+}

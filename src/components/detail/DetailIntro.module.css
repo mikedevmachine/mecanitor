@@ -1,0 +1,155 @@
+/*
+ * Topo da página de serviço — frame 217:978 do Figma, num desenho de 1440px.
+ * A grelha desta página é mais larga que a da homepage: 1214px de conteúdo
+ * entre goteiras de 113px.
+ */
+
+.intro {
+  position: relative;
+  z-index: 1;
+  padding-top: 148px;
+  padding-bottom: 24px;
+}
+
+.inner {
+  width: 100%;
+  max-width: calc(1214px + 2 * var(--site-gutter));
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+/*
+ * Barra do título: 943px encostada à direita do conteúdo, com um degradé branco
+ * que acende ao terço e se apaga nas pontas.
+ */
+.titleBar {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding-block: 10px;
+  padding-inline: 24px;
+  background: linear-gradient(
+    to right,
+    rgb(255 255 255 / 0) 0%,
+    rgb(255 255 255 / 0.55) 33.654%,
+    rgb(255 255 255 / 0) 100%
+  );
+}
+
+.title {
+  color: var(--color-black);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+/*
+ * Filete decorativo: risco horizontal por baixo do título que quebra numa
+ * diagonal descendente para a esquerda. O SVG traz `preserveAspectRatio="none"`.
+ */
+.rule {
+  display: none;
+}
+
+.lead {
+  margin-top: 20px;
+  color: var(--color-white);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Rich text dos equipamentos: parágrafos e realces a peso médio. */
+.lead p + p {
+  margin-top: 0.5em;
+}
+
+.lead strong {
+  font-weight: 500;
+}
+
+/* Categoria em peso fino, modelo a negrito — como no Figma. */
+.titleCategory {
+  font-weight: 200;
+}
+
+.titleModel {
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+}
+
+/*
+ * Conjunto 362:4243: em repouso o quadrado e o triângulo são só contorno dourado;
+ * ao passar o rato o triângulo enche, mantendo-se o quadrado em contorno.
+ */
+.arrow {
+  display: block;
+  width: 41px;
+  height: 41px;
+  background: url('/figma/arrow.svg') center / contain no-repeat;
+}
+
+.arrow:hover,
+.arrow:focus-visible {
+  background-image: url('/figma/arrow-hover.svg');
+}
+
+/* O "seguinte" reutiliza o mesmo ficheiro, rodado — tal como no Figma. */
+.next {
+  transform: rotate(180deg);
+}
+
+@media (width >= 1024px) {
+  .intro {
+    /* A barra do título arranca em y=166 do desenho. */
+    padding-top: 166px;
+    /* Fecha a 387px, onde começa a galeria. */
+    padding-bottom: 42px;
+  }
+
+  .inner {
+    position: relative;
+  }
+
+  .titleBar {
+    width: 943px;
+    height: 42px;
+    margin-left: auto;
+    /* O texto arranca em x=514 do desenho, 130px dentro da barra. */
+    padding-block: 0;
+    padding-inline: 130px 100px;
+  }
+
+  .title {
+    font-size: 30px;
+    white-space: nowrap;
+  }
+
+  .rule {
+    display: block;
+    position: absolute;
+    top: 42px;
+    right: 0;
+    width: 942.5px;
+    height: 179.5px;
+    pointer-events: none;
+  }
+
+  .lead {
+    /* x=514 do desenho, menos a goteira de 113px. */
+    margin-top: 21px;
+    margin-left: 401px;
+    width: 680px;
+  }
+
+  .nav {
+    margin-top: 28px;
+  }
+}

@@ -1,0 +1,105 @@
+/*
+ * Faixa de título que assenta na costura entre duas secções.
+ *
+ * No Figma cada título vive no fim da secção ANTERIOR, por cima da cunha
+ * decorativa desse canto, e o risco de 2px corre exactamente sobre a linha de
+ * base do texto até sangrar na margem direita — a cedilha de "SERVIÇOS"
+ * atravessa-o. Daí o `translateY` e a ausência de `overflow: hidden`.
+ */
+
+/*
+ * Sem `height`: a caixa cresce para cima a partir de `bottom: 0`. Com uma altura
+ * fixa, o empilhamento dos ecrãs estreitos (assinatura por cima do título)
+ * transbordava para baixo e o título caía para dentro da secção seguinte.
+ */
+.seam {
+  --content-left: max(var(--site-gutter), calc((100% - var(--site-width)) / 2) - 6px);
+  position: absolute;
+  height: 53px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  /* Decorativo: nunca rouba cliques ao conteúdo da secção. */
+  pointer-events: none;
+}
+
+.inner {
+  display: flex;
+  /* Ecrãs estreitos: a assinatura fica por cima do título. */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  max-width: calc(var(--site-width) + 2 * var(--site-gutter));
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+.label {
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  /* Baixa o texto 0.22em para pousar a linha de base sobre o risco. */
+  transform: translateY(0.22em);
+}
+
+.aside {
+  order: -1;
+  min-width: 0;
+}
+
+.rule {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: calc(var(--content-left) + var(--rule-offset));
+  height: var(--rule-thickness);
+}
+
+/* Tons — o título assenta sempre sobre a cunha da secção anterior. */
+.ash {
+  color: var(--color-ash);
+}
+
+.ash .rule {
+  background: var(--color-ash);
+}
+
+.ink {
+  color: var(--color-ink);
+}
+
+.ink .rule {
+  background: var(--color-ink);
+}
+
+.white {
+  color: var(--color-white);
+}
+
+.white .rule {
+  background: var(--color-white);
+}
+
+@media (width >= 768px) {
+  .label {
+    font-size: 48px;
+  }
+}
+
+@media (width >= 1024px) {
+  .inner {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 40px;
+  }
+
+  .aside {
+    flex: 1;
+    order: 0;
+  }
+}

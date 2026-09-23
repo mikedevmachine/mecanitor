@@ -1,0 +1,78 @@
+/*
+ * Secção "Equipamentos": fundo `ink` com a cunha amarela ancorada ao canto
+ * inferior esquerdo. A costura ("CONTACTOS") assenta sobre essa cunha e o seu
+ * risco sangra à direita, por isso a secção NÃO pode cortar o conteúdo — só a
+ * camada decorativa é recortada.
+ */
+
+.section {
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 170px;
+  background: var(--color-ink);
+}
+
+/* Camada recortada: segura a cunha dentro da secção sem cortar a costura. */
+.decor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/*
+ * Triângulo decorativo — mantém a proporção natural de 550.76 × 399.5.
+ *
+ * A costura ("CONTACTOS") é `ink` sobre um fundo `ink`: só se lê o que assenta
+ * na cunha, por isso a hipotenusa tem de passar sempre para lá do fim do título.
+ * O título parte da goteira do conteúdo (o `--content-left` do `SectionSeam`),
+ * que NÃO encolhe com o viewport — daí a largura ser medida a partir dessa
+ * goteira e não em `vw`. Na linha de topo do texto a hipotenusa está recuada
+ * `550.76 / 399.5 × 0.78em` (o `translateY(.22em)` da costura), ou seja ~52px
+ * com o título a 48px: os 406.76px são exactamente os 550.76 do Figma a 1440px
+ * (144px de goteira) e deixam ~59px de folga depois do "CONTACTOS".
+ */
+.wedge {
+  --seam-left: max(var(--site-gutter), calc((100% - var(--site-width)) / 2));
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(var(--seam-left) + 316px);
+  height: auto;
+  user-select: none;
+}
+
+/* A costura passa a 48px: precisa de mais 91px de cunha por baixo do título. */
+@media (width >= 768px) {
+  .wedge {
+    width: calc(var(--seam-left) + 406.76px);
+  }
+}
+
+/* À frente da cunha, mas abaixo da costura (z-index 5), que se lhe sobrepõe. */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--site-width) + 2 * var(--site-gutter));
+  margin-inline: auto;
+  padding-inline: var(--site-gutter);
+}
+
+/* Cards de 366px em linha, centrados: com cinco equipamentos dá 3 + 2. */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 27px;
+  margin-top: 56px;
+}
+
+.item {
+  width: 100%;
+  max-width: 366px;
+}
