@@ -29,8 +29,18 @@ do seed (`src/seed/assets`, ~81 MB) sobem — é delas que a media é reconstru�
 
 Em <https://turso.tech>, criar uma base de dados e guardar as duas credenciais:
 
-- **URL** — `libsql://<nome>-<conta>.turso.io`
+- **URL** — `libsql://<nome>-<conta>.<região>.turso.io`
 - **Token** — gerado em _Create Token_
+
+**A região importa mais do que parece.** O Payload faz vários SELECT em série
+para desenhar uma página, e cada um paga a latência inteira até à base de dados.
+Com a base no Japão e as funções na Europa, uma página passa a demorar segundos.
+Escolher uma região europeia — Frankfurt ou Irlanda — e mantê-la alinhada com a
+região das funções da Vercel, que o `vercel.json` fixa em `fra1`.
+
+A região de uma base de dados não se muda depois de criada: se estiver errada,
+apaga-se e cria-se outra. Antes do seed isso não custa nada; depois obriga a
+carregar os 60 MB de media outra vez.
 
 ## 3. Blob store na Vercel
 
